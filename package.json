@@ -10,7 +10,8 @@
     ]
   },
   "scripts": {
-    "lerna": "lerna"
+    "lerna": "lerna",
+    "dev":"lerna run dev --stream --parallel"
   },
   "dependencies": {
     "lerna": "^3.22.1"
