@@ -1,30 +1,25 @@
-const express = require('express')
+const express = require('express');
 
+const routes = express.Router();
+const User = require('./Controllers/users.controllers');
+const Product = require('./Controllers/products.controllers');
 
-const routes = express.Router()
-const Usuario = require('./Controllers/usuarios.controllers')
-const Produto = require('./Controllers/produtos.controllers')
-
-
-
-routes.post('/', Usuario.index)
+routes.post('/', User.index);
 
 //Rotas de Usuários
-routes.post('/api/usuarios', Usuario.create)
-routes.get('/api/usuarios', Usuario.index)
-routes.get('/api/usuarios.details/:_id', Usuario.datails)
-routes.delete('/api/usuarios/:_id', Usuario.delete)
-routes.put('/api/usuarios', Usuario.update)
-routes.post('/api/usuarios/login', Usuario.login)
-routes.get('/api/usuarios/checktoken', Usuario.checkToken)
-routes.get('/api/usuarios/destroyToken', Usuario.destroyToken)
+routes.post('/api/users', User.create);
+routes.get('/api/users', User.index);
+routes.get('/api/users.details/:_id', User.datails);
+routes.delete('/api/users/:_id', User.delete);
+routes.put('/api/users/:_id', User.update);
+routes.post('/api/users/login', User.login);
+routes.get('/api/users/checktoken', User.checkToken);
+routes.get('/api/users/destroyToken', User.destroyToken);
 
-//Rotas de Produtos
-routes.post('/api/produtos', Produto.create)
-routes.get('/api/produtos', Produto.index)
-routes.get('/api/produtos.details/:_id', Produto.datails)
-routes.delete('/api/produtos/:_id', Produto.delete)
-routes.put('/api/produtos', Produto.update)
-module.exports = routes
-
-
+//Rotas de Products
+routes.post('/api/products', Product.create);
+routes.get('/api/products', Product.index);
+routes.get('/api/products.details/:_id', Product.datails);
+routes.delete('/api/products/:_id', Product.delete);
+routes.put('/api/products', Product.update);
+module.exports = routes;

@@ -10,16 +10,22 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
-
+import SearchIcon from '@mui/icons-material/Search';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 
+
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
+
+
 import api from '../../../services/api'
 
 const mdTheme = createTheme();
+
 
 function UsuarioCadastar() {
 
@@ -69,7 +75,13 @@ function UsuarioCadastar() {
             }}
             >
             <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
+              <Link component={RouterLink} to="/admin/usuarios">
+                <Button style={{marginBottom:10}} variant='contained' color='primary' startIcon={<SearchIcon/>}>
+                  LOCALIZAR
+                </Button>
+              </Link>
+
               <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column' }}>
                 <h2>Cadastro de usuário</h2>
                 <Grid container spacing={3}>
@@ -80,9 +92,8 @@ function UsuarioCadastar() {
                     name="nome "
                     label="Nome"
                     fullWidth
-                    autoComplete="given-nome"
                     variant="standard"
-                    value={nome}
+                    defaultValue={nome}
                     onChange={e => setNome(e.target.value)}
                     />  
                   </Grid>
@@ -93,9 +104,8 @@ function UsuarioCadastar() {
                     name="email "
                     label="E-mail"
                     fullWidth
-                    autoComplete="given-email"
                     variant="standard"
-                    value={email}
+                    defaultValue={email}
                     onChange={e => setEmail(e.target.value)}
                     />
                   </Grid>
@@ -105,11 +115,12 @@ function UsuarioCadastar() {
                         <Select
                           id="demo-simple-select-standard"
                           variant="standard"
-                          value={tipo}
+                          defaultValue={tipo}
                           onChange={e => setTipo(e.target.value)}
                           >
-                          <MenuItem value={1}>Administrador</MenuItem>
-                          <MenuItem value={2}>Funcionário</MenuItem>
+                          <MenuItem value={1}>Gerente</MenuItem>
+                          <MenuItem value={2}>Administrador</MenuItem>
+                          <MenuItem value={3}>Funcionário</MenuItem>
                         </Select>
                     </FormControl>
                   </Grid>
@@ -121,9 +132,8 @@ function UsuarioCadastar() {
                     label="Senha"
                     fullWidth
                     type="password"
-                    autoComplete="family-senha"
                     variant="standard"
-                    value={senha}
+                    defaultValue={senha}
                     onChange={e => setSenha(e.target.value)}
                     />
                   </Grid>

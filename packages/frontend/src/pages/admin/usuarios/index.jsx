@@ -20,7 +20,14 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
+
+
 import api from '../../../services/api'
+import { getTypeName, getTypeNameLabel} from '../../../functions/static_data';
 
 const mdTheme = createTheme();
 
@@ -66,9 +73,14 @@ function UsuarioListagem() {
             }}
             >
             <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Container maxWidth="lg" sx={{ mt: 2, mb: 4 }}>
             <Grid container spacing={2}> 
               <Grid item sm={12}>
+                <Link component={RouterLink} to="/admin/usuarios/cadastrar">
+                  <Button style={{marginBottom:10}} variant='contained' color='success' startIcon={<AddCircleOutlineIcon/>}>
+                    INCLUIR
+                  </Button>
+                </Link>
                 <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column' }}>
                   <h2>Listagem de Usuário</h2>
                   <Grid container spacing={2}>
@@ -94,15 +106,11 @@ function UsuarioListagem() {
                                   {row.nome_usuario}
                                 </TableCell>
                                 <TableCell align="height">{row.email_usuario}</TableCell>
-                                <TableCell align="center">{row.tipo_usuario ===1?
+                                <TableCell align="center">
                                   <Chip 
-                                  label="Administrador" 
-                                  color="success" />:
-
-                                  <Chip 
-                                  label="Funcionário" 
-                                  color="primary" />
-                                }</TableCell>
+                                  label={getTypeName(row.tipo_usuario)}
+                                  color={getTypeNameLabel(row.tipo_usuario)} />
+                                </TableCell>
                                 <TableCell align="center">{new Date(row.createdAt).toLocaleString('pt-br')}</TableCell>
                                 <TableCell align="right">
                                   <ButtonGroup color='primary' aria-label="outlined primary button group">

@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import { getNomeUsuario } from '../services/auth';
+import { getUserName } from '../services/auth';
 
 
 export default function UserMenu() {
@@ -28,7 +28,7 @@ export default function UserMenu() {
         onClick={handleClick}
         sx={{color: '#fff'}}
       >
-      <p p={{ p: 2 }}>Bem-vindo,&nbsp;</p> { getNomeUsuario()}
+      <p p={{ p: 2 }}>Bem-vindo,&nbsp;</p> { getUserName()}
       </Button>
       <Menu
         id="basic-menu"

@@ -11,7 +11,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import {setNomeUsuario, login, setIdUsuario, setTipoUsuario} from '../../../services/auth'
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+import {setUserName, login, setUserId, setUserType} from '../../../services/auth'
 
 import api from '../../../services/api'
 
@@ -32,17 +40,18 @@ const theme = createTheme();
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   async function handleSubmit(){
-    await api.post('/api/usuarios/login', {email, senha})
+    await api.post('/api/users/login', {email, password})
     .then(res => {
       if(res.status===200){
         if(res.data.status===1){
           login(res.data.token)
-          setIdUsuario(res.data.id_client)
-          setNomeUsuario(res.data.user_name)
-          setTipoUsuario(res.data.user_type)
+          setUserId(res.data.id_client)
+          setUserName(res.data.user_name)
+          setUserType(res.data.user_type)
 
           window.location.href= '/admin'      
         }else if(res.data.status===2){
@@ -80,23 +89,31 @@ export default function SignIn() {
               id="email"
               label="E-mail"
               name="email"
-              autoComplete="given-email"
               autoFocus
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="senha"
-              label="Senha"
-              type="password"
-              id="senha"
-              autoComplete="current-password"
-              value={senha}
-              onChange={e => setSenha(e.target.value)}
-            /> 
+            <FormControl required variant="outlined" style={{width:'100%', marginTop:10}}>
+            <InputLabel htmlFor="campoSenha">Senha</InputLabel>
+            <OutlinedInput
+              id="campoSenha"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={e => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label='password'
+            />
+            </FormControl>
             <Button
               fullWidth
               variant="contained"

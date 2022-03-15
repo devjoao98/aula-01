@@ -52,10 +52,10 @@ async function confirmSair(){
     window.confirm('Deseja realmente sair do sistema?')){
       const response = await api.get('/api/usuarios/destroyToken', {headers: {token:getToken()}})
       if(response.status===200){
-        logout()
-        window.location.href = '/admin/login'
+        logout();
+        window.location.href = '/admin/login';
       }else{
-        alert('Não foi possével fazer o logout!')
+        alert('Não foi possével fazer o logout!');
       }
   }
 
